@@ -11,12 +11,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 import controle.Academia;
-import entidade.Aluno;
-import entidade.Funcionario;
+import entidadeImpl.Aluno;
+import entidadeImpl.Funcionario;
 import excecao.RegistroJaCadastradoException;
 import excecao.RegistroNaoEncontradoException;
 
-public class teste {
+public class TestesAtores {
 
 	private Academia academia;
 	private Aluno fabio, maria, fabio2;
@@ -112,4 +112,8 @@ public class teste {
 	public void testeBuscaAlunoPorCpfNaoEncontrado() {
 		this.academia.buscaAlunoPorCpf("12345678902");
 	}
+
+	// @Test
+	// public void testeAlunoTemMatricula(){
+	// }
 }

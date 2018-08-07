@@ -1,4 +1,4 @@
-package entidade;
+package entidadeImpl;
 
 public class Pessoa {
 	protected String nome;

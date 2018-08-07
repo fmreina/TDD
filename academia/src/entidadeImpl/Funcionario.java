@@ -1,11 +1,11 @@
-package entidade;
+package entidadeImpl;
 
 import tipo.TipoCargo;
 
 public class Funcionario extends Pessoa {
 	private TipoCargo cargo;
 	private String usuario;
-	private String senha;
+	private String senha; // armazenamento em memória
 
 	public Funcionario(String nome, String cpf, TipoCargo cargo) {
 		this.nome = nome;
@@ -31,5 +31,13 @@ public class Funcionario extends Pessoa {
 
 	public String getSenha() {
 		return this.senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
 	}
 }

@@ -5,8 +5,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import entidade.Aluno;
-import entidade.Funcionario;
+import entidade.Autenticador;
+import entidadeImpl.Aluno;
+import entidadeImpl.AutenticadorImpl;
+import entidadeImpl.Funcionario;
 import excecao.RegistroJaCadastradoException;
 import excecao.RegistroNaoEncontradoException;
 
@@ -51,5 +53,10 @@ public class Academia {
 			throw new RegistroNaoEncontradoException(String.format("Não foi possível encontrar um aluno com o CPF %s.", cpf));
 		}
 		return filtro;
+	}
+
+	public boolean autenticarUsuario(Funcionario funcionario, String usuario, String senha) {
+		Autenticador autenticador = new AutenticadorImpl();
+		return autenticador.autenticarUsuario(funcionario, usuario, senha);
 	}
 }
