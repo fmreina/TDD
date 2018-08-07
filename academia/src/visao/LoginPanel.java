@@ -6,8 +6,12 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import controle.Academia;
+
 public class LoginPanel extends javax.swing.JFrame {
 
+	private Academia academia;
+	
 	private JLabel errorMessageLabel;
 	private JLabel jLabel1;
 	private JPanel loginPanel;
@@ -27,16 +31,19 @@ public class LoginPanel extends javax.swing.JFrame {
 
 	private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {
 		// System.out.println(usuarioTextField.getText() +" - "+ senhaTextField.getText()+ " - "+ senhaTextField.getPassword());
-		String user = "adm";
-		String pass = "adm";
-
-		if (!user.equals(this.usuarioTextField.getText()) || !pass.equals(this.senhaTextField.getText())) {
-			this.markError();
-			this.errorMessageLabel.setVisible(true);
-		} else {
-			new AdmHomePanel().setVisible(true);
-			this.setVisible(false);
-		}
+//		String user = "adm";
+//		String pass = "adm";
+//
+//		if (!user.equals(this.usuarioTextField.getText()) || !pass.equals(this.senhaTextField.getText())) {
+//			this.markError();
+//			this.errorMessageLabel.setVisible(true);
+//		} else {
+//			new AdmHomePanel().setVisible(true);
+//			this.setVisible(false);
+//		}
+		
+//		academia.getAlunos()
+//		academia.autenticarUsuario(funcionario, usuario, senha);
 	}
 
 	private void loginButton1ActionPerformed(java.awt.event.ActionEvent evt) {
