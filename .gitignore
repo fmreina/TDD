@@ -1,1 +1,3 @@
 academia/src/enunciado
+*.orig
+*.class
