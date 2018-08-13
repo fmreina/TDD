@@ -1,17 +1,26 @@
 package visao;
 
+import java.awt.Image;
+
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
-import controle.Academia;
+import controle.Gerenciador;
+import entidadeImpl.Funcionario;
+import excecao.UsuarioOuSenhaInvalidosException;
 
-public class LoginPanel extends javax.swing.JFrame {
+//public class LoginPanel extends javax.swing.JFrame {
+public class LoginPanel extends javax.swing.JPanel {
 
-	private Academia academia;
-	
+	private Gerenciador gerenciador;
+
 	private JLabel errorMessageLabel;
 	private JLabel jLabel1;
 	private JPanel loginPanel;
@@ -24,39 +33,32 @@ public class LoginPanel extends javax.swing.JFrame {
 	private JLabel usuarioLabel;
 	private JTextField usuarioTextField;
 
-	public LoginPanel() {
+	public LoginPanel(Gerenciador gerenciador) {
+		this.gerenciador = gerenciador;
 		this.initComponents();
 		this.errorMessageLabel.setVisible(false);
 	}
 
-	private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {
-		// System.out.println(usuarioTextField.getText() +" - "+ senhaTextField.getText()+ " - "+ senhaTextField.getPassword());
-//		String user = "adm";
-//		String pass = "adm";
-//
-//		if (!user.equals(this.usuarioTextField.getText()) || !pass.equals(this.senhaTextField.getText())) {
-//			this.markError();
-//			this.errorMessageLabel.setVisible(true);
-//		} else {
-//			new AdmHomePanel().setVisible(true);
-//			this.setVisible(false);
-//		}
-		
-//		academia.getAlunos()
-//		academia.autenticarUsuario(funcionario, usuario, senha);
+	private void handleLoginClicked(java.awt.event.ActionEvent evt) {
+		try {
+			Funcionario funcionarioValido = this.gerenciador.autenticate(this.usuarioTextField.getText(), this.senhaTextField.getText());
+			if (funcionarioValido != null) {
+				this.gerenciador.showHome(funcionarioValido);
+			}
+		} catch (UsuarioOuSenhaInvalidosException e) {
+			this.markError();
+		}
 	}
 
-	private void loginButton1ActionPerformed(java.awt.event.ActionEvent evt) {
-		// TODO add your handling code here:
+	private void handleSairClicked(java.awt.event.ActionEvent evt) {
+		this.gerenciador.sair();
 	}
 
 	private void markError() {
-		// this.usuarioTextField.setCaretColor(Color.red);
-		// this.senhaTextField.setCaretColor(Color.red);
+		this.errorMessageLabel.setVisible(true);
 
 		this.usuarioTextField.setText("");
 		this.senhaTextField.setText("");
-
 	}
 
 	@SuppressWarnings("unchecked")
@@ -73,7 +75,7 @@ public class LoginPanel extends javax.swing.JFrame {
 		this.loginButton = new javax.swing.JButton();
 		this.imagemPanel = new javax.swing.JPanel();
 
-		this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+		// this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
 		this.loginPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -94,7 +96,7 @@ public class LoginPanel extends javax.swing.JFrame {
 		this.sairButton.addActionListener(new java.awt.event.ActionListener() {
 			@Override
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				LoginPanel.this.loginButton1ActionPerformed(evt);
+				LoginPanel.this.handleSairClicked(evt);
 			}
 		});
 
@@ -102,75 +104,75 @@ public class LoginPanel extends javax.swing.JFrame {
 		this.loginButton.addActionListener(new java.awt.event.ActionListener() {
 			@Override
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				LoginPanel.this.loginButtonActionPerformed(evt);
+				LoginPanel.this.handleLoginClicked(evt);
 			}
 		});
 
 		javax.swing.GroupLayout gl_loginPanel = new javax.swing.GroupLayout(this.loginPanel);
-		this.loginPanel.setLayout(gl_loginPanel);
 		gl_loginPanel.setHorizontalGroup(
-				gl_loginPanel.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				gl_loginPanel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_loginPanel.createSequentialGroup()
 								.addContainerGap()
-								.addGroup(gl_loginPanel.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-										.addGroup(javax.swing.GroupLayout.Alignment.TRAILING, gl_loginPanel.createSequentialGroup()
-												.addComponent(this.loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-												.addGap(32, 32, 32)
-												.addComponent(this.sairButton, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-												.addGap(12, 12, 12))
-										.addGroup(javax.swing.GroupLayout.Alignment.TRAILING, gl_loginPanel.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+								.addGroup(gl_loginPanel.createParallelGroup(Alignment.TRAILING)
+										.addGroup(gl_loginPanel.createSequentialGroup()
+												.addComponent(this.loginButton, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE)
+												.addGap(32)
+												.addComponent(this.sairButton, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE)
+												.addGap(12))
+										.addGroup(gl_loginPanel.createParallelGroup(Alignment.LEADING, false)
 												.addGroup(gl_loginPanel.createSequentialGroup()
-														.addComponent(this.usuarioLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-														.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-														.addGroup(gl_loginPanel.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-																.addComponent(this.usuarioTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 191,
-																		javax.swing.GroupLayout.PREFERRED_SIZE)
-																.addComponent(this.tituloLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 106,
-																		javax.swing.GroupLayout.PREFERRED_SIZE)))
+														.addComponent(this.usuarioLabel, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
+														.addPreferredGap(ComponentPlacement.RELATED)
+														.addGroup(gl_loginPanel.createParallelGroup(Alignment.LEADING)
+																.addComponent(this.usuarioTextField, GroupLayout.PREFERRED_SIZE, 191, GroupLayout.PREFERRED_SIZE)
+																.addComponent(this.tituloLabel, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)))
 												.addGroup(gl_loginPanel.createSequentialGroup()
-														.addComponent(this.senhaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-														.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-														.addComponent(this.senhaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)))
-										.addGroup(javax.swing.GroupLayout.Alignment.TRAILING, gl_loginPanel.createSequentialGroup()
+														.addComponent(this.senhaLabel, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
+														.addPreferredGap(ComponentPlacement.RELATED)
+														.addComponent(this.senhaTextField, GroupLayout.PREFERRED_SIZE, 191, GroupLayout.PREFERRED_SIZE)))
+										.addGroup(gl_loginPanel.createSequentialGroup()
 												.addComponent(this.errorMessageLabel)
-												.addGap(67, 67, 67)))
-								.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+												.addGap(67)))
+								.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 		gl_loginPanel.setVerticalGroup(
-				gl_loginPanel.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				gl_loginPanel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_loginPanel.createSequentialGroup()
-								.addContainerGap()
-								.addComponent(this.tituloLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+								.addGap(43)
+								.addComponent(this.tituloLabel, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(ComponentPlacement.RELATED)
 								.addComponent(this.errorMessageLabel)
-								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-								.addGroup(gl_loginPanel.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-										.addComponent(this.usuarioLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-										.addComponent(this.usuarioTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
-												javax.swing.GroupLayout.PREFERRED_SIZE))
-								.addGap(7, 7, 7)
-								.addGroup(gl_loginPanel.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-										.addComponent(this.senhaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-										.addComponent(this.senhaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
-												javax.swing.GroupLayout.PREFERRED_SIZE))
-								.addGap(18, 18, 18)
-								.addGroup(gl_loginPanel.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addGroup(gl_loginPanel.createParallelGroup(Alignment.BASELINE)
+										.addComponent(this.usuarioLabel, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
+										.addComponent(this.usuarioTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addGap(7)
+								.addGroup(gl_loginPanel.createParallelGroup(Alignment.TRAILING)
+										.addComponent(this.senhaLabel, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
+										.addComponent(this.senhaTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addGap(18)
+								.addGroup(gl_loginPanel.createParallelGroup(Alignment.BASELINE)
 										.addComponent(this.loginButton)
 										.addComponent(this.sairButton))
-								.addContainerGap(21, Short.MAX_VALUE)));
+								.addContainerGap(72, Short.MAX_VALUE)));
+		this.loginPanel.setLayout(gl_loginPanel);
 
 		this.imagemPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-		javax.swing.GroupLayout gl_imagemPanel = new javax.swing.GroupLayout(this.imagemPanel);
-		this.imagemPanel.setLayout(gl_imagemPanel);
-		gl_imagemPanel.setHorizontalGroup(
-				gl_imagemPanel.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-						.addGap(0, 284, Short.MAX_VALUE));
-		gl_imagemPanel.setVerticalGroup(
-				gl_imagemPanel.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-						.addGap(0, 0, Short.MAX_VALUE));
+		JLabel label = new JLabel("");
+		Image icon = new ImageIcon(LoginPanel.class.getResource("/resources/gym.jpg")).getImage().getScaledInstance(300, 300, Image.SCALE_SMOOTH);
+		label.setIcon(new ImageIcon(icon));
 
-		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this.getContentPane());
-		this.getContentPane().setLayout(layout);
+		javax.swing.GroupLayout gl_imagemPanel = new javax.swing.GroupLayout(this.imagemPanel);
+		gl_imagemPanel.setHorizontalGroup(
+				gl_imagemPanel.createParallelGroup(Alignment.LEADING)
+						.addComponent(label, GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE));
+		gl_imagemPanel.setVerticalGroup(
+				gl_imagemPanel.createParallelGroup(Alignment.LEADING)
+						.addComponent(label, GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE));
+		this.imagemPanel.setLayout(gl_imagemPanel);
+
+		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+		this.setLayout(layout);
 		layout.setHorizontalGroup(
 				layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 						.addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -189,7 +191,5 @@ public class LoginPanel extends javax.swing.JFrame {
 										.addComponent(this.loginPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 								.addContainerGap()));
 
-		this.pack();
 	}// </editor-fold>
-
 }

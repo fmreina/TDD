@@ -17,6 +17,17 @@ public class Aluno extends Pessoa {
 		this.matricula = this.gerarMatricula();
 	}
 
+	public Aluno(String nome, String rg, String cpf, String dtNascimento, String telefone, String endereco) {
+		this.nome = nome;
+		this.rg = rg;
+		this.cpf = cpf;
+		this.dtNascimento = dtNascimento;
+		this.telefone = telefone;
+		this.endereco = endereco;
+		this.dtInicio = new Date();
+		this.matricula = this.gerarMatricula();
+	}
+
 	public String gerarMatricula() {
 		return String.valueOf(this.idCounter.getAndIncrement());
 	}

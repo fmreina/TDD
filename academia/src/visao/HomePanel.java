@@ -6,12 +6,42 @@
 
 package visao;
 
-public class AdmHomePanel extends javax.swing.JPanel {
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import controle.Gerenciador;
+import tipo.TipoCargo;
+
+public class HomePanel extends javax.swing.JPanel {
+
+	// Variables declaration - do not modify
+	private javax.swing.JButton AlunosBigButton;
+	private javax.swing.JButton alunosButton;
+	private javax.swing.JButton cadastroBigButton;
+	private javax.swing.JButton cadastroButton;
+	private javax.swing.JButton funcionariosBigButton;
+	private javax.swing.JButton funcionariosButton;
+	private javax.swing.JButton homeButton;
+	private javax.swing.JPanel menuPanel;
+	private javax.swing.JPanel rightPanel;
+	private javax.swing.JButton sairButton;
+	private javax.swing.JSeparator semapadorMenu;
+	private javax.swing.JSeparator separadorRight;
+	private javax.swing.JLabel tituloMenu;
+	private javax.swing.JLabel tituloRight;
+	// End of variables declaration
+	private Gerenciador gerenciador;
+	private TipoCargo cargo;
 
 	/**
 	 * Creates new form AdmHomePanel
+	 *
+	 * @param gerenciador
+	 * @param cargo
 	 */
-	public AdmHomePanel() {
+	public HomePanel(Gerenciador gerenciador, TipoCargo cargo) {
+		this.gerenciador = gerenciador;
+		this.cargo = cargo;
 		this.initComponents();
 	}
 
@@ -28,21 +58,69 @@ public class AdmHomePanel extends javax.swing.JPanel {
 		this.tituloMenu = new javax.swing.JLabel();
 		this.semapadorMenu = new javax.swing.JSeparator();
 		this.homeButton = new javax.swing.JButton();
+		this.homeButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				HomePanel.this.gerenciador.goHome(HomePanel.this.cargo);
+			}
+		});
 		this.cadastroButton = new javax.swing.JButton();
+		this.cadastroButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				HomePanel.this.gerenciador.goCadastroHome(HomePanel.this.cargo);
+			}
+		});
 		this.funcionariosButton = new javax.swing.JButton();
+		this.funcionariosButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				HomePanel.this.gerenciador.goListaFuncionarios(HomePanel.this.cargo);
+			}
+		});
 		this.alunosButton = new javax.swing.JButton();
+		this.alunosButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				HomePanel.this.gerenciador.goListaAlunos(HomePanel.this.cargo);
+			}
+		});
 		this.sairButton = new javax.swing.JButton();
+		this.sairButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				HomePanel.this.gerenciador.start();
+			}
+		});
 		this.rightPanel = new javax.swing.JPanel();
 		this.tituloRight = new javax.swing.JLabel();
 		this.separadorRight = new javax.swing.JSeparator();
 		this.cadastroBigButton = new javax.swing.JButton();
+		this.cadastroBigButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				HomePanel.this.gerenciador.goCadastroHome(HomePanel.this.cargo);
+			}
+		});
 		this.funcionariosBigButton = new javax.swing.JButton();
+		this.funcionariosBigButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				HomePanel.this.gerenciador.goListaFuncionarios(HomePanel.this.cargo);
+			}
+		});
 		this.AlunosBigButton = new javax.swing.JButton();
+		this.AlunosBigButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				HomePanel.this.gerenciador.goListaAlunos(HomePanel.this.cargo);
+			}
+		});
 
 		this.menuPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
 		this.tituloMenu.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-		this.tituloMenu.setText("ADMINISTRADOR");
+		this.tituloMenu.setText(this.cargo.getName().toUpperCase());
 
 		this.homeButton.setText("Home");
 		this.homeButton.setToolTipText("");
@@ -162,20 +240,4 @@ public class AdmHomePanel extends javax.swing.JPanel {
 								.addContainerGap()));
 	}// </editor-fold>
 
-	// Variables declaration - do not modify
-	private javax.swing.JButton AlunosBigButton;
-	private javax.swing.JButton alunosButton;
-	private javax.swing.JButton cadastroBigButton;
-	private javax.swing.JButton cadastroButton;
-	private javax.swing.JButton funcionariosBigButton;
-	private javax.swing.JButton funcionariosButton;
-	private javax.swing.JButton homeButton;
-	private javax.swing.JPanel menuPanel;
-	private javax.swing.JPanel rightPanel;
-	private javax.swing.JButton sairButton;
-	private javax.swing.JSeparator semapadorMenu;
-	private javax.swing.JSeparator separadorRight;
-	private javax.swing.JLabel tituloMenu;
-	private javax.swing.JLabel tituloRight;
-	// End of variables declaration
 }

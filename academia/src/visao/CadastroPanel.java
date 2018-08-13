@@ -1,11 +1,44 @@
 package visao;
 
-public class AdmFuncionariosPanel extends javax.swing.JPanel {
+import static tipo.TipoCadastro.ALUNO;
+import static tipo.TipoCadastro.FUNCIONARIO;
+import static tipo.TipoCargo.ADM;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import controle.Gerenciador;
+import tipo.TipoCargo;
+
+public class CadastroPanel extends javax.swing.JPanel {
+
+	// Variables declaration - do not modify
+	private javax.swing.JButton novoAlunoButton;
+	private javax.swing.JButton alunosButton;
+	private javax.swing.JButton cadastroButton;
+	private javax.swing.JButton novoFuncionariosButton;
+	private javax.swing.JButton funcionariosButton;
+	private javax.swing.JButton homeButton;
+	private javax.swing.JPanel menuPanel;
+	private javax.swing.JPanel rightPanel;
+	private javax.swing.JButton sairButton;
+	private javax.swing.JSeparator semapadorMenu;
+	private javax.swing.JSeparator separadorRight;
+	private javax.swing.JLabel tituloMenu;
+	private javax.swing.JLabel tituloRight;
+	// End of variables declaration
+	private Gerenciador gerenciador;
+	private TipoCargo cargo;
 
 	/**
 	 * Creates new form AdmHomePanel
+	 *
+	 * @param gerenciador
+	 * @param cargo
 	 */
-	public AdmFuncionariosPanel() {
+	public CadastroPanel(Gerenciador gerenciador, TipoCargo cargo) {
+		this.gerenciador = gerenciador;
+		this.cargo = cargo;
 		this.initComponents();
 	}
 
@@ -22,21 +55,48 @@ public class AdmFuncionariosPanel extends javax.swing.JPanel {
 		this.tituloMenu = new javax.swing.JLabel();
 		this.semapadorMenu = new javax.swing.JSeparator();
 		this.homeButton = new javax.swing.JButton();
+		this.homeButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				CadastroPanel.this.gerenciador.goHome(CadastroPanel.this.cargo);
+			}
+		});
 		this.cadastroButton = new javax.swing.JButton();
+		this.cadastroButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				CadastroPanel.this.gerenciador.goCadastroHome(CadastroPanel.this.cargo);
+			}
+		});
 		this.funcionariosButton = new javax.swing.JButton();
+		this.funcionariosButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				CadastroPanel.this.gerenciador.goListaFuncionarios(CadastroPanel.this.cargo);
+			}
+		});
 		this.alunosButton = new javax.swing.JButton();
+		this.alunosButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				CadastroPanel.this.gerenciador.goListaAlunos(CadastroPanel.this.cargo);
+			}
+		});
 		this.sairButton = new javax.swing.JButton();
+		this.sairButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				CadastroPanel.this.gerenciador.start();
+			}
+		});
 		this.rightPanel = new javax.swing.JPanel();
 		this.tituloRight = new javax.swing.JLabel();
 		this.separadorRight = new javax.swing.JSeparator();
-		this.jScrollPane1 = new javax.swing.JScrollPane();
-		this.funcionariosjTable = new javax.swing.JTable();
-		this.novoFuncionarioButton = new javax.swing.JButton();
 
 		this.menuPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
 		this.tituloMenu.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-		this.tituloMenu.setText("ADMINISTRADOR");
+		this.tituloMenu.setText(this.cargo.getName().toUpperCase());
 
 		this.homeButton.setText("Home");
 		this.homeButton.setToolTipText("");
@@ -82,28 +142,33 @@ public class AdmFuncionariosPanel extends javax.swing.JPanel {
 								.addComponent(this.funcionariosButton)
 								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 								.addComponent(this.alunosButton)
-								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 211, Short.MAX_VALUE)
+								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 								.addComponent(this.sairButton)
 								.addContainerGap()));
 
 		this.rightPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
 		this.tituloRight.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-		this.tituloRight.setText("Funcionários");
+		this.tituloRight.setText("Cadastro");
 
-		this.funcionariosjTable.setModel(new javax.swing.table.DefaultTableModel(
-				new Object[][] {
-						{ null, null, null, null },
-						{ null, null, null, null },
-						{ null, null, null, null },
-						{ null, null, null, null }
-				},
-				new String[] {
-						"Title 1", "Title 2", "Title 3", "Title 4"
-				}));
-		this.jScrollPane1.setViewportView(this.funcionariosjTable);
+		this.novoFuncionariosButton = new javax.swing.JButton();
+		this.novoFuncionariosButton.setText("Novo funcionario");
+		this.novoFuncionariosButton.setVisible(ADM.equals(this.cargo));
+		this.novoFuncionariosButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				CadastroPanel.this.gerenciador.goCadastroForm(CadastroPanel.this.cargo, FUNCIONARIO);
+			}
+		});
 
-		this.novoFuncionarioButton.setText("Novo funcionário");
+		this.novoAlunoButton = new javax.swing.JButton();
+		this.novoAlunoButton.setText("Novo aluno");
+		this.novoAlunoButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				CadastroPanel.this.gerenciador.goCadastroForm(CadastroPanel.this.cargo, ALUNO);
+			}
+		});
 
 		javax.swing.GroupLayout rightPanelLayout = new javax.swing.GroupLayout(this.rightPanel);
 		this.rightPanel.setLayout(rightPanelLayout);
@@ -115,17 +180,17 @@ public class AdmFuncionariosPanel extends javax.swing.JPanel {
 												.addContainerGap()
 												.addComponent(this.separadorRight))
 										.addGroup(rightPanelLayout.createSequentialGroup()
-												.addContainerGap()
-												.addComponent(this.jScrollPane1))
+												.addGap(146, 146, 146)
+												.addComponent(this.tituloRight)
+												.addGap(0, 147, Short.MAX_VALUE))
 										.addGroup(rightPanelLayout.createSequentialGroup()
 												.addContainerGap()
-												.addComponent(this.novoFuncionarioButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
-														Short.MAX_VALUE)))
-								.addContainerGap())
-						.addGroup(rightPanelLayout.createSequentialGroup()
-								.addGap(175, 175, 175)
-								.addComponent(this.tituloRight)
-								.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+												.addComponent(this.novoFuncionariosButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
+														Short.MAX_VALUE))
+										.addGroup(rightPanelLayout.createSequentialGroup()
+												.addContainerGap()
+												.addComponent(this.novoAlunoButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+								.addContainerGap()));
 		rightPanelLayout.setVerticalGroup(
 				rightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 						.addGroup(rightPanelLayout.createSequentialGroup()
@@ -133,11 +198,11 @@ public class AdmFuncionariosPanel extends javax.swing.JPanel {
 								.addComponent(this.tituloRight)
 								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 								.addComponent(this.separadorRight, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-								.addComponent(this.jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+								.addGap(90, 90, 90)
+								.addComponent(this.novoFuncionariosButton, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
 								.addGap(18, 18, 18)
-								.addComponent(this.novoFuncionarioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-								.addContainerGap()));
+								.addComponent(this.novoAlunoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+								.addContainerGap(106, Short.MAX_VALUE)));
 
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
 		this.setLayout(layout);
@@ -159,20 +224,4 @@ public class AdmFuncionariosPanel extends javax.swing.JPanel {
 								.addContainerGap()));
 	}// </editor-fold>
 
-	// Variables declaration - do not modify
-	private javax.swing.JButton alunosButton;
-	private javax.swing.JButton cadastroButton;
-	private javax.swing.JButton funcionariosButton;
-	private javax.swing.JTable funcionariosjTable;
-	private javax.swing.JButton homeButton;
-	private javax.swing.JScrollPane jScrollPane1;
-	private javax.swing.JPanel menuPanel;
-	private javax.swing.JButton novoFuncionarioButton;
-	private javax.swing.JPanel rightPanel;
-	private javax.swing.JButton sairButton;
-	private javax.swing.JSeparator semapadorMenu;
-	private javax.swing.JSeparator separadorRight;
-	private javax.swing.JLabel tituloMenu;
-	private javax.swing.JLabel tituloRight;
-	// End of variables declaration
 }

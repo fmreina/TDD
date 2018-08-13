@@ -1,8 +1,10 @@
 package controle;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import entidade.Autenticador;
@@ -11,6 +13,7 @@ import entidadeImpl.AutenticadorImpl;
 import entidadeImpl.Funcionario;
 import excecao.RegistroJaCadastradoException;
 import excecao.RegistroNaoEncontradoException;
+import excecao.UsuarioOuSenhaInvalidosException;
 
 public class Academia {
 
@@ -55,8 +58,13 @@ public class Academia {
 		return filtro;
 	}
 
-	public boolean autenticarUsuario(Funcionario funcionario, String usuario, String senha) {
+	public Funcionario autenticarUsuario(String usuario, String senha) throws UsuarioOuSenhaInvalidosException {
 		Autenticador autenticador = new AutenticadorImpl();
-		return autenticador.autenticarUsuario(funcionario, usuario, senha);
+
+		List<Funcionario> funcionarios = new ArrayList<Funcionario>(this.getFuncionarios().values());
+		Optional<Funcionario> func = funcionarios.stream().filter(f -> usuario.equals(f.getUsuario())).findAny();
+
+		boolean isValid = func.isPresent() ? autenticador.autenticarUsuario(func.get(), usuario, senha) : autenticador.autenticarUsuario(new Funcionario(), usuario, senha);
+		return isValid ? func.get() : null;
 	}
 }
