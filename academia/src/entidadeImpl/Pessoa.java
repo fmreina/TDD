@@ -1,11 +1,12 @@
 package entidadeImpl;
 
+import java.util.Date;
+
 public class Pessoa {
 	protected String nome;
 	protected String rg;
 	protected String cpf;
-	// protected Date dtNascimento;
-	protected String dtNascimento;
+	protected Date dtNascimento;
 	protected String telefone;
 	protected String endereco;
 
@@ -21,7 +22,7 @@ public class Pessoa {
 		return this.rg;
 	}
 
-	public String getDtNascimento() {
+	public Date getDtNascimento() {
 		return this.dtNascimento;
 	}
 

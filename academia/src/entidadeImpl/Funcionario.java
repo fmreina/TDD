@@ -1,5 +1,7 @@
 package entidadeImpl;
 
+import java.util.Date;
+
 import tipo.TipoCargo;
 
 public class Funcionario extends Pessoa {
@@ -25,7 +27,7 @@ public class Funcionario extends Pessoa {
 		this.senha = senha;
 	}
 
-	public Funcionario(String nome, String rg, String cpf, String dtNascimento, String telefone, String endereco, TipoCargo cargo, String salario, String usuario,
+	public Funcionario(String nome, String rg, String cpf, Date dtNascimento, String telefone, String endereco, TipoCargo cargo, String salario, String usuario,
 			String senha) {
 		this.nome = nome;
 		this.rg = rg;

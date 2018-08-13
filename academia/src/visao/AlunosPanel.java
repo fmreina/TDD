@@ -1,9 +1,17 @@
 package visao;
 
+import static tipo.TipoCadastro.ALUNO;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
+
+import javax.swing.table.DefaultTableModel;
 
 import controle.Gerenciador;
+import entidadeImpl.Aluno;
+import entidadeImpl.DateUtils;
+import entidadeImpl.Funcionario;
 import tipo.TipoCargo;
 
 public class AlunosPanel extends javax.swing.JPanel {
@@ -28,14 +36,41 @@ public class AlunosPanel extends javax.swing.JPanel {
 	private Gerenciador gerenciador;
 	private TipoCargo cargo;
 
-	public AlunosPanel(Gerenciador gerenciador, TipoCargo cargo) {
+	public AlunosPanel(Gerenciador gerenciador, TipoCargo cargo, List<Aluno> list) {
 		this.gerenciador = gerenciador;
 		this.cargo = cargo;
 		this.initComponents();
+		setTableItems(list);
 	}
 
+	public void setTableItems(List<Aluno> list) {
+		this.alunosjTable.setModel(new javax.swing.table.DefaultTableModel(
+				new Object[list.size()][] ,
+				new String[] {
+//						"Nome", "Matricula", "CPF", "RG", "Nascimento", "Início", "Telefone", "Endereço"
+						"Nome", "Matricula", "Início", "CPF"
+				}));
+		
+		DefaultTableModel model = (DefaultTableModel)alunosjTable.getModel();
+		
+
+		for(int i = 0; i < list.size(); i++ ){
+			// model.setValueAt(aValue, row, column);
+			Aluno aluno = list.get(i);
+			model.setValueAt(aluno.getNome(), i, 0);
+			model.setValueAt(aluno.getMatricula(), i, 1);
+			model.setValueAt(DateUtils.formatDate(aluno.getDtInicio()), i, 2);
+			model.setValueAt(aluno.getCpf(), i, 3);
+//			model.setValueAt(aluno.getRg(), i, 3);
+//			model.setValueAt(aluno.getDtNascimento(), i, 4);
+//			model.setValueAt(aluno.getTelefone(), i, 6);
+//			model.setValueAt(aluno.getEndereco(), i, 6);
+		}
+		
+		alunosjTable.setEnabled(false);
+	}
+	
 	@SuppressWarnings("unchecked")
-	// <editor-fold defaultstate="collapsed" desc="Generated Code">
 	private void initComponents() {
 
 		this.menuPanel = new javax.swing.JPanel();
@@ -80,6 +115,12 @@ public class AlunosPanel extends javax.swing.JPanel {
 		this.tituloRight = new javax.swing.JLabel();
 		this.separadorRight = new javax.swing.JSeparator();
 		this.novoAlunoButton = new javax.swing.JButton();
+		novoAlunoButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				AlunosPanel.this.gerenciador.goCadastroForm(cargo, ALUNO);;
+			}
+		});
 		this.jScrollPane2 = new javax.swing.JScrollPane();
 		this.jScrollPane1 = new javax.swing.JScrollPane();
 		this.alunosjTable = new javax.swing.JTable();
@@ -142,7 +183,7 @@ public class AlunosPanel extends javax.swing.JPanel {
 		this.tituloRight.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
 		this.tituloRight.setText("Alunos");
 
-		this.novoAlunoButton.setText("Novo funcionário");
+		this.novoAlunoButton.setText("Novo aluno");
 
 		this.alunosjTable.setModel(new javax.swing.table.DefaultTableModel(
 				new Object[][] {

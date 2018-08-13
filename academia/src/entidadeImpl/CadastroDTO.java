@@ -1,5 +1,7 @@
 package entidadeImpl;
 
+import java.util.Date;
+
 import tipo.TipoCadastro;
 import tipo.TipoCargo;
 
@@ -17,8 +19,7 @@ public class CadastroDTO {
 
 	private String cpf;
 
-	// private Date dtNascimento;
-	private String dtNascimento;
+	private Date dtNascimento;
 
 	private String telefone;
 
@@ -76,18 +77,11 @@ public class CadastroDTO {
 		this.cpf = cpf;
 	}
 
-	// public Date getDtNascimento() {
-	// return this.dtNascimento;
-	// }
-	//
-	// public void setDtNascimento(Date dtNascimento) {
-	// this.dtNascimento = dtNascimento;
-	// }
-	public String getDtNascimento() {
+	public Date getDtNascimento() {
 		return this.dtNascimento;
 	}
 
-	public void setDtNascimento(String dtNascimento) {
+	public void setDtNascimento(Date dtNascimento) {
 		this.dtNascimento = dtNascimento;
 	}
 
@@ -122,5 +116,5 @@ public class CadastroDTO {
 	public void setSalario(String salario) {
 		this.salario = salario;
 	}
-
+	
 }

@@ -17,7 +17,7 @@ public class Aluno extends Pessoa {
 		this.matricula = this.gerarMatricula();
 	}
 
-	public Aluno(String nome, String rg, String cpf, String dtNascimento, String telefone, String endereco) {
+	public Aluno(String nome, String rg, String cpf, Date dtNascimento, String telefone, String endereco) {
 		this.nome = nome;
 		this.rg = rg;
 		this.cpf = cpf;

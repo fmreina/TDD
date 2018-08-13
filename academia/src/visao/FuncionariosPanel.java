@@ -1,9 +1,15 @@
 package visao;
 
+import static tipo.TipoCadastro.FUNCIONARIO;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
+
+import javax.swing.table.DefaultTableModel;
 
 import controle.Gerenciador;
+import entidadeImpl.Funcionario;
 import tipo.TipoCargo;
 
 public class FuncionariosPanel extends javax.swing.JPanel {
@@ -29,24 +35,33 @@ public class FuncionariosPanel extends javax.swing.JPanel {
 	private Gerenciador gerenciador;
 	private TipoCargo cargo;
 
-	public FuncionariosPanel(Gerenciador gerenciador, TipoCargo cargo) {
+	public FuncionariosPanel(Gerenciador gerenciador, TipoCargo cargo, List<Funcionario> lista) {
 		this.gerenciador = gerenciador;
 		this.cargo = cargo;
 		this.initComponents();
+		setTableItems(lista);
 	}
 
-	public void setTableItems() {
+	public void setTableItems(List<Funcionario> list) {
 		this.funcionariosjTable.setModel(new javax.swing.table.DefaultTableModel(
-				new Object[][] {
-						{ "Adm", TipoCargo.ADM.getName() },
-						{ "Trei", TipoCargo.TREINADOR.getName() },
-						{ null, null },
-						{ null, null },
-						{ null, null }
-				},
+				new Object[list.size()][] ,
 				new String[] {
-						"Nome", "Cargo"
+						"Nome", "Cargo", "CPF", "RG"
 				}));
+		
+		DefaultTableModel model = (DefaultTableModel)funcionariosjTable.getModel();
+		
+
+		for(int i = 0; i < list.size(); i++ ){
+			// model.setValueAt(aValue, row, column);
+			Funcionario func = list.get(i);
+			model.setValueAt(func.getNome(), i, 0);
+			model.setValueAt(func.getCargo(), i, 1);
+			model.setValueAt(func.getCpf(), i, 2);
+			model.setValueAt(func.getRg(), i, 3);
+		}
+		
+		funcionariosjTable.setEnabled(false);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -95,6 +110,12 @@ public class FuncionariosPanel extends javax.swing.JPanel {
 		this.tituloRight = new javax.swing.JLabel();
 		this.separadorRight = new javax.swing.JSeparator();
 		this.novoFuncionarioButton = new javax.swing.JButton();
+		novoFuncionarioButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				FuncionariosPanel.this.gerenciador.goCadastroForm(cargo, FUNCIONARIO);;
+			}
+		});
 		this.jScrollPane2 = new javax.swing.JScrollPane();
 		this.jScrollPane1 = new javax.swing.JScrollPane();
 		this.funcionariosjTable = new javax.swing.JTable();
@@ -159,17 +180,17 @@ public class FuncionariosPanel extends javax.swing.JPanel {
 
 		this.novoFuncionarioButton.setText("Novo funcionário");
 
-		this.funcionariosjTable.setModel(new javax.swing.table.DefaultTableModel(
-				new Object[][] {
-						{ "Lusca", TipoCargo.ADM.getName() },
-						{ "Ferrugem", TipoCargo.TREINADOR.getName() },
-						{ null, null },
-						{ null, null },
-						{ null, null }
-				},
-				new String[] {
-						"Nome", "Cargo"
-				}));
+//		this.funcionariosjTable.setModel(new javax.swing.table.DefaultTableModel(
+//				new Object[][] {
+////						{ "Lusca", TipoCargo.ADM.getName(), null, null },
+////						{ "Ferrugem", TipoCargo.TREINADOR.getName(), null, null },
+////						{ null, null, null, null },
+////						{ null, null, null, null },
+////						{ null, null, null, null }
+//				},
+//				new String[] {
+//						"Nome", "Cargo", "CPF", "RG"
+//				}));
 		this.jScrollPane1.setViewportView(this.funcionariosjTable);
 
 		this.jScrollPane2.setViewportView(this.jScrollPane1);

@@ -1,4 +1,6 @@
 academia/src/enunciado
 academia/bin/enunciado
+academia/.settings/org.eclipse.jdt.ui.prefs
 *.orig
 *.class
+
